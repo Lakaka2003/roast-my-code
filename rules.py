@@ -11,7 +11,7 @@ def roast_code(lines, strict=False):
                 roasts.append((str(line_num), line_stripped, "That 'TODO' is just there to make you feel better. You'll never fix it."))
             continue
 
-        # MINOR RULES (Ignorate în modul --strict)
+        # MINOR RULES (Ignored in --strict mode)
         if not strict:
             if re.match(r'^[a-zA-Z]\s*=', line_stripped):
                 roasts.append((str(line_num), line_stripped, "Single-letter variable? Are you a programmer or playing Hangman?"))
@@ -25,7 +25,7 @@ def roast_code(lines, strict=False):
             if re.search(r'==\s*(True|False)', line_stripped):
                 roasts.append((str(line_num), line_stripped, "Using '== True'? What's next, 'if (True == True) == True'?"))
 
-        # MAJOR RULES (Sunt rulate mereu, arată probleme grave de logică/securitate)
+        # MAJOR RULES (Always run, indicating serious logic or security flaws)
         if line_stripped == "except:":
             roasts.append((str(line_num), line_stripped, "Sweeping errors under the rug with a bare 'except:'. Brave, but irresponsible."))
             

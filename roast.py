@@ -6,7 +6,7 @@ from rules import roast_code
 console = Console()
 
 def main():
-    # Setăm argparse pentru argumente de terminal profesioniste
+    # Setup argparse for professional CLI arguments
     parser = argparse.ArgumentParser(
         description="🌶️  Roast My Code - A sarcastic Python static analysis tool."
     )
@@ -21,7 +21,7 @@ def main():
         with open(filename, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             
-        # Trimitem flag-ul către logica noastră
+        # Pass the flag to our validation logic
         roasts = roast_code(lines, strict=args.strict)
         
         if not roasts:
