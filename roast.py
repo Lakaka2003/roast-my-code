@@ -1,31 +1,34 @@
-import sys
+import argparse
 from rich.console import Console
 from rich.table import Table
-
-# Importam logica de validare din noul nostru fisier rules.py
 from rules import roast_code
 
 console = Console()
 
 def main():
-    if len(sys.argv) < 2:
-        console.print("[bold red]Error: You didn't provide a file for me to judge![/bold red]")
-        console.print("Usage: [cyan]python3 roast.py <filename.py>[/cyan]")
-        return
-
-    filename = sys.argv[1]
+    # Setăm argparse pentru argumente de terminal profesioniste
+    parser = argparse.ArgumentParser(
+        description="🌶️  Roast My Code - A sarcastic Python static analysis tool."
+    )
+    
+    parser.add_argument("filename", help="The Python file you want me to judge")
+    parser.add_argument("--strict", action="store_true", help="Only show major architectural and security flaws")
+    
+    args = parser.parse_args()
+    filename = args.filename
 
     try:
         with open(filename, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             
-        # Folosim functia importata pentru a obtine insultele
-        roasts = roast_code(lines)
+        # Trimitem flag-ul către logica noastră
+        roasts = roast_code(lines, strict=args.strict)
         
         if not roasts:
-            console.print(f"[bold green]Incredible! I couldn't find any major mistakes in '{filename}'.[/bold green]")
+            console.print(f"[bold green]Incredible! I couldn't find any mistakes in '{filename}'.[/bold green]")
         else:
-            console.print(f"[bold red]I analyzed '{filename}' and it's awful. Here is what I found:[/bold red]\n")
+            mode_text = "[bold red](STRICT MODE)[/bold red] " if args.strict else ""
+            console.print(f"{mode_text}[bold red]I analyzed '{filename}' and it's awful. Here is what I found:[/bold red]\n")
             
             table = Table(show_header=True, header_style="bold magenta")
             table.add_column("Line", style="dim", width=5)
