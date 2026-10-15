@@ -1,12 +1,16 @@
-# TODO: Să repar codul ăsta mai târziu
+# TODO: Refactor this entire mess later
+global user_count
 x = 5
 
-while True:
-    print("test")
-    y = 10
-    chestie_foarte_lunga_care_nu_se_mai_termina_niciodata_si_pe_care_probabil_am_scris_o_doar_ca_sa_trec_de_100_de_caractere_in_aceasta_linie_pentru_test = True
-    
-    try:
-        rezultat = x / 0
-    except:
-        pass
+if x == True:
+    f = open("data.txt", "r")
+    while True:
+        for i in range(10):
+            for j in range(5):
+                if j == 2:
+                    print("debug")
+                    user_input = eval("2 + 2")
+                    try:
+                        result = x / 0
+                    except:
+                        pass
